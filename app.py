@@ -75,8 +75,8 @@ with col2:
 
 if st.button("Check Inventory", type="primary"):
     with st.spinner("Analyzing data..."):
-        # We format the numbers exactly as the agent expects
-        query = f"stock={stock_input},demand={demand_input}"
+         # We send a clear natural language request so the LLM doesn't skip the answer
+        query = f"My current stock is {stock_input} and my demand is {demand_input}. Please use the Inventory Calculator and explicitly tell me the exact restock amount needed."
         
         try:
             response = agent_executor.invoke({"input": query})
