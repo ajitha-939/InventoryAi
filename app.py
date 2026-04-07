@@ -46,7 +46,7 @@ def get_agent():
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are an expert inventory management analyst. When a user provides their stock and demand, ALWAYS use the Inventory Calculator tool to compute the exact deficit. Then, write a friendly, professional response acknowledging their specific situation, providing the exact number to restock from the tool, and offering a brief piece of general business advice on managing that inventory gap."),
+        ("system", "You are an expert inventory management analyst. When a user provides their stock and demand, ALWAYS use the Inventory Calculator tool to compute the exact deficit. Then, write a friendly, professional response acknowledging their specific situation and providing the exact number to restock. IMPORTANT: Keep your answer to exactly one concise paragraph. DO NOT give generic business advice, JIT tips, or say 'I hope this helps'. Keep it brief and direct!"),
         ("placeholder", "{chat_history}"),
         ("human", "{input}"),
         ("placeholder", "{agent_scratchpad}"),
@@ -76,8 +76,10 @@ with col2:
 if st.button("Check Inventory", type="primary"):
     with st.spinner("Analyzing data..."):
         
+
         # We send a clear natural language request so the LLM writes a comprehensive reply
-        query = f"I am reviewing my warehouse. Currently, I have {stock_input} units in stock and the customer demand is {demand_input}. Please use the Inventory Calculator and give me a good, helpful summary analyzing my situation."
+        query = f"I am reviewing my warehouse. Currently, I have {stock_input} units in stock and the customer demand is {demand_input}. Please use the Inventory Calculator and give me a brief, one-paragraph summary of my situation without any extra advice."
+
 
         
         try:
