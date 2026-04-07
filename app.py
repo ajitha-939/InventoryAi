@@ -45,7 +45,7 @@ def get_agent():
 
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-        prompt = ChatPromptTemplate.from_messages([
+    prompt = ChatPromptTemplate.from_messages([
         ("system", "You are an expert inventory management analyst. When a user provides their stock and demand, ALWAYS use the Inventory Calculator tool to compute the exact deficit. Then, write a friendly, professional response acknowledging their specific situation, providing the exact number to restock from the tool, and offering a brief piece of general business advice on managing that inventory gap."),
         ("placeholder", "{chat_history}"),
         ("human", "{input}"),
