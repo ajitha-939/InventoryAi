@@ -45,8 +45,8 @@ def get_agent():
 
     memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "You are a helpful inventory assistant. Your job is to help the user manage their inventory. Always be friendly and helpful. When a user asks about restocking, gather their current stock and demand, and use the Inventory Calculator tool."),
+        prompt = ChatPromptTemplate.from_messages([
+        ("system", "You are an expert inventory management analyst. When a user provides their stock and demand, ALWAYS use the Inventory Calculator tool to compute the exact deficit. Then, write a friendly, professional response acknowledging their specific situation, providing the exact number to restock from the tool, and offering a brief piece of general business advice on managing that inventory gap."),
         ("placeholder", "{chat_history}"),
         ("human", "{input}"),
         ("placeholder", "{agent_scratchpad}"),
@@ -76,7 +76,9 @@ with col2:
 if st.button("Check Inventory", type="primary"):
     with st.spinner("Analyzing data..."):
          # We send a clear natural language request so the LLM doesn't skip the answer
-        query = f"My current stock is {stock_input} and my demand is {demand_input}. Please use the Inventory Calculator and explicitly tell me the exact restock amount needed."
+                # We send a clear natural language request so the LLM writes a comprehensive reply
+        query = f"I am reviewing my warehouse. Currently, I have {stock_input} units in stock and the customer demand is {demand_input}. Please use the Inventory Calculator and give me a good, helpful summary analyzing my situation."
+
         
         try:
             response = agent_executor.invoke({"input": query})
