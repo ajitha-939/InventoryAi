@@ -75,8 +75,8 @@ with col2:
 
 if st.button("Check Inventory", type="primary"):
     with st.spinner("Analyzing data..."):
-         # We send a clear natural language request so the LLM doesn't skip the answer
-                # We send a clear natural language request so the LLM writes a comprehensive reply
+        
+        # We send a clear natural language request so the LLM writes a comprehensive reply
         query = f"I am reviewing my warehouse. Currently, I have {stock_input} units in stock and the customer demand is {demand_input}. Please use the Inventory Calculator and give me a good, helpful summary analyzing my situation."
 
         
